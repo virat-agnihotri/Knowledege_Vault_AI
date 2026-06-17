@@ -1,0 +1,215 @@
+Finish your current PDF RAG.
+Learn FAISS deeply.
+Learn Metadata Filtering.
+Learn BM25.
+Learn Hybrid Search.
+Learn Reranking.
+Learn Multi Query Retrieval.
+Learn Parent-Child Retrieval.
+Build Notion-like Knowledge Base.
+Build Agentic RAG.
+
+
+Frontend:
+React
+
+Backend:
+FastAPI
+
+Embeddings:
+Sentence Transformers
+
+Vector DB:
+FAISS
+
+LLM:
+Gemini API
+
+Reranker:
+BGE Reranker
+
+Database:
+SQLite
+
+Deployment:
+Vercel + Render
+
+
+============================================================================
+working
+
+1)user login/signup(create a table named userinfo)
+	-username
+	-password
+	=userid:+1
+2)create workspace( create a table named workspaces)
+	-enter workspace name
+	=user id(from userinfo)
+	=workspace id:+1
+3)create pdf table
+	-stores pdf name
+	-store the chunks------------------------
+	=user id(from userinfo)			 |
+	=workspace id(from workspaces)		 |
+CHUNKING
+user select the pdf
+the pdf will be in bytes so it will be directly be sended pdfprocessor--->nltk breakdown--->embeddings--->semilarity search--->chunker-->chunks formation--->stored into the pdf
+
+
+tables
+1. Users Table
+users
+id	username	email	password_hash	created_at
+1	virat	virat@gmail.com	x8fa12...	2026-06-16
+2	aman	aman@gmail.com	y92bc3...	2026-06-16
+
+Purpose:
+Stores login information
+2. Workspaces Table
+workspaces
+id	user_id	workspace_name	created_at
+1	1	College Notes	2026-06-16
+2	1	CS50	2026-06-16
+3	2	Research	2026-06-16
+
+Purpose:
+
+Stores workspace information
+
+Relationship:
+
+user_id = 1
+↓
+belongs to Virat
+3. Documents Table
+documents
+id	workspace_id	filename	file_path	upload_date
+1	1	React.pdf	user1/workspace1/react.pdf	2026-06-16
+2	1	DBMS.pdf	user1/workspace1/dbms.pdf	2026-06-16
+3	2	Lecture1.pdf	user1/workspace2/lecture1.pdf	2026-06-16
+
+Purpose:
+
+Stores uploaded PDF information
+
+Actual PDF:
+
+Supabase Storage
+
+or
+
+uploads/
+4. Chunks Table
+chunks
+id	user_id	workspace_id	document_id	vector_id	chunk_text
+1	1	1	1	0	React Hooks are functions...
+2	1	1	1	1	useState allows components...
+3	1	1	1	2	useEffect handles side effects...
+
+Purpose:
+
+Stores chunk text and metadata
+Full Relationship
+User
+│
+├── Workspace
+│     │
+│     ├── Document
+│     │      │
+│     │      ├── Chunk
+│     │      ├── Chunk
+│     │      └── Chunk
+│     │
+│     └── Document
+│            │
+│            ├── Chunk
+│            └── Chunk
+	
+
+TINGS TO LEARN
+
+• Chunking
+• Recursive Chunking
+• Semantic Chunking
+• Embeddings
+• Vector Databases (FAISS)
+• Metadata
+
+• BM25
+• Dense Retrieval
+• Hybrid Search
+• Metadata Filtering
+• Multi-Query Retrieval
+• Query Expansion
+• Self Query Retriever
+• Ensemble Retriever
+
+• Parent-Child Retrieval
+• Hierarchical Retrieval
+• Contextual Chunking
+• Multi-Vector Retrieval
+
+• Rerankers
+• Cross Encoder Models
+• Contextual Compression Retriever
+
+• Incremental Indexing
+• Reindexing
+• Deduplication
+• Document Versioning
+
+• Context Compression
+• Long Context Retrieval
+• Citation Generation
+
+• Tool Calling
+• Agentic Retrieval
+• Multi-Step Retrieval
+• Reflection Loops
+
+• CRAG (Corrective RAG)
+• Self-RAG
+• Adaptive RAG
+
+• Graph Databases Basics
+• Entity Extraction
+• Knowledge Graph Construction
+• Graph RAG
+
+• Recall@K
+• Precision@K
+• MRR
+• Faithfulness
+• Answer Relevance
+• Context Relevance
+• RAGAS
+• DeepEval
+
+• Caching
+• Monitoring
+• Logging
+• Analytics
+• Rate Limiting
+• Authentication & Authorization
+• Multi-Tenant SaaS Design
+
+• FAISS Advanced Indexes
+• Qdrant
+• Pinecone
+• Weaviate
+
+• BGE Embeddings
+• E5 Embeddings
+• Jina Embeddings
+
+WHAT TO FOCUS ON
+• BM25
+• Hybrid Search
+• Metadata Filtering
+• Rerankers
+• Parent-Child Retrieval
+• Multi-Query Retrieval
+• Context Compression
+• Agentic RAG
+• Graph RAG
+• RAGAS

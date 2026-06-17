@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+.buttons{
+  background-color: aqua;
+  border:solid black 1px;
+  border-radius:8px;
+  cursor:pointer;
+
+
+}
