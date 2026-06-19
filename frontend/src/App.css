@@ -1,10 +1,29 @@
 @import "tailwindcss";
 
-.buttons{
+.buttons, .buttons-theme{
   background-color: aqua;
   border:solid black 1px;
   border-radius:8px;
   cursor:pointer;
+}
+.navbar {
+  min-height: 100vh;
+}
 
+.navbar.light {
+  background-color: white;
+}
 
+.navbar.dark {
+  background-color: grey;
+}
+
+.navbar.light .buttons-theme {
+  background-color: white;
+  color: black;
+}
+
+.navbar.dark .buttons-theme {
+  background-color: black;
+  color: white;
 }

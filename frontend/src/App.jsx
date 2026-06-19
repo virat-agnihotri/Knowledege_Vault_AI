@@ -3,11 +3,12 @@ import './App.css'
 import SideBar from "./components/SideBar"
 function App() {
   const [count, setCount] = useState(0)
+  const message="hello";
   
 
   return (
    <div>
-    <SideBar />
+    <SideBar abcd={message} />
    </div>
   )
 }
