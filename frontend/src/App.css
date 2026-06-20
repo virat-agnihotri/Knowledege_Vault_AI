@@ -34,4 +34,17 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  text-align: center;
+}
+
+.login-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+.login-top{
+  
 }

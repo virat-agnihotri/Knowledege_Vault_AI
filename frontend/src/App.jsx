@@ -1,17 +1,14 @@
 import { useState } from 'react'
 import './App.css'
-import SideBar from "./components/SideBar"
-import NavBar from "./components/NavBar"
-import Trash from "./components/trash"
+import Login from './components/Login'
+import SignUp from "./components/SignUp"
 function App() {
-  const [count, setCount] = useState(0)
+
   const message="hello";
 
   return (
    <div>
-    <SideBar/>
-    <NavBar/>
-    {/* <Trash abcd={message}/> */}
+    <Login />
    </div>
   )
 }
