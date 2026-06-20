@@ -6,7 +6,6 @@ import Trash from "./components/trash"
 function App() {
   const [count, setCount] = useState(0)
   const message="hello";
-  
 
   return (
    <div>
