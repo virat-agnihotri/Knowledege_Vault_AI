@@ -13,11 +13,11 @@ function Login() {
             <div className='login-top'>
                 <SiNotion className='notion-logo'/>
                 <h2>Your AI workspace.</h2>
-                <h2>Log in to your Notion account</h2>
+                <h3>Log in to your Notion account</h3>
             </div>
             <div className='login-info'>
                 <div className='login-input'>
-                    <label for = "email">Email</label><br/>
+                    <label htmlFor = "email">Email</label><br/>
                     <input id = "email" type = "email" placeholder='Enter your email address...' />
                     <p>Use an organization email to easily collaborate with teammates</p>
                     <button>Continue</button>
