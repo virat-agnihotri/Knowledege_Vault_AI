@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import SideBar from "./components/SideBar"
+import NavBar from "./components/NavBar"
+import Trash from "./components/trash"
 function App() {
   const [count, setCount] = useState(0)
   const message="hello";
@@ -8,7 +10,9 @@ function App() {
 
   return (
    <div>
-    <SideBar abcd={message} />
+    <SideBar/>
+    <NavBar/>
+    {/* <Trash abcd={message}/> */}
    </div>
   )
 }
