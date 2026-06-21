@@ -6,14 +6,21 @@ import NavBar from "./components/NavBar"
 import Trash from "./components/trash"
 import LandingPage from "./components/LandingPage";
 import Login from "./components/Login"
-import SignUp from "./components/SignUp"
+import SignUp from "./components/SignUp";
 function App() {
   const [count, setCount] = useState(0)
   const message="hello";
   const [Active,SetActive]=useState("")
   const [signupLogin,setSignupLogin] = useState("signup");
   return (
-    <Login />
+    <SignUp />
+  //  <BrowserRouter>
+  //  <Routes>
+  //   <Route path="/" element={<LandingPage />}/>
+  //   <Route path="/login" element={<Login />}/>
+  //   <Route path="signup" element={<SignIn />}/>
+  //  </Routes>
+  //  </BrowserRouter>
   )
 }
 
