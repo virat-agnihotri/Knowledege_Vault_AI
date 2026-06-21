@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+.buttons, .buttons-theme{
+  background-color: aqua;
+  border:solid black 1px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
 .login-page{
   min-height: 100vh;
   display: flex;
@@ -40,13 +47,16 @@
   font-weight: 500;
 }
 
+
 .login-info{
   width: 100%;
 }
 
+
 .login-input{
   width: 100%;
 }
+
 
 .login-input label{
   font-size: 14px;
@@ -54,6 +64,7 @@
   margin-bottom: -16px;
   display: block;
 }
+
 
 .login-input input{
   width: 100%;
@@ -115,8 +126,10 @@
 
 .login-options fieldset{
   display: flex;
+
   flex-wrap: wrap;
   justify-content: center;
+
   gap: 12px;
 }
 
@@ -130,7 +143,60 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+  
+.login-options button:hover{
+  background: #fafafa;
+}
+
+.login-google-logo,
+.login-apple-logo,
+.login-microsoft-logo,
+.login-passkey-logo,
+.login-sso-logo{
+  font-size: 24px;
+}
+
+.login-others{
+  margin-top: 35px;
+  text-align: center;
+  width: 350px;
+}
+
+.login-others h3{
+  font-size: 15px;
+  color: #666;
+  font-weight: 400;
+}
+
+.login-others h3 button{
+  border: none;
+  background: transparent;
+  color: #2383e2;
+  cursor: pointer;
+  font-size: inherit;
+  text-decoration: underline;
+}
+
+.login-others p{
+  margin-top: 18px;
+  font-size: 13px;
+  color: #8f8f8f;
+  line-height: 1.6;
+}
+
+.login-others p button{
+  border: none;
+  background: transparent;
+  color: #8f8f8f;
+  text-decoration: underline;
+  cursor: pointer;
 }
 .signUpPage{
   display: flex;
@@ -196,12 +262,16 @@ input{
   margin-top:6px;
 }
 .continue-btn{
-  border:1px solid blue;
+  border:1px solid rgb(48, 48, 250);
   border-radius:10px;
   padding:5px;
   color:white;
-  background-color:blue;
+  background-color:rgb(48, 48, 250);
   margin-top:8px;
+  cursor:pointer
+}
+.continue-btn:hover{
+  background-color: blue;
 }
 .divider{
   display:flex;
@@ -241,6 +311,7 @@ input{
   margin-right: 4px;
   font-size:13px;
   font-weight: 550;
+  cursor:pointer;
 }
 
 
@@ -256,6 +327,7 @@ input{
   padding:20px; 
   font-size: 13px;
   font-weight: 550;
+  cursor:pointer;
 
 }
 
@@ -281,4 +353,12 @@ input{
   font-size:13px;
   color:grey;
 }
+.terms-condition{
+  text-decoration: underline;
+  cursor:pointer
+}
+.privacy-policy{
+  cursor:pointer;
+  text-decoration: underline;
 
+}

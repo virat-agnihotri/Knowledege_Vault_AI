@@ -13,22 +13,15 @@ function App() {
   const [Active,SetActive]=useState("")
   const [signupLogin,setSignupLogin] = useState("signup");
   return (
-    <SignUp />
-  //  <BrowserRouter>
-  //  <Routes>
-  //   <Route path="/" element={<LandingPage />}/>
-  //   <Route path="/login" element={<Login />}/>
-  //   <Route path="signup" element={<SignIn />}/>
-  //  </Routes>
-  //  </BrowserRouter>
+
+   <BrowserRouter>
+   <Routes>
+    {/* <Route path="/" element={<LandingPage />}/> */}
+    <Route path="/" element={<Login />}/>
+    <Route path="/SignUp" element={<SignUp />}/>
+   </Routes>
+   </BrowserRouter>
   )
 }
 
 export default App;
-//  <BrowserRouter>
-//  <Routes>
-//   <Route path="/" element={<LandingPage />}/>
-//   <Route path="/login" element={<Login />}/>
-//   <Route path="signup" element={<SignUp />}/>
-//  </Routes>
-//  </BrowserRouter>

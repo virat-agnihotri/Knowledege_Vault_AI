@@ -5,8 +5,10 @@ import { FaApple } from "react-icons/fa";
 import { FaMicrosoft } from "react-icons/fa";
 import { GoPasskeyFill } from "react-icons/go";
 import { IoBusinessOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+    const navigate=useNavigate();
   return (
     <div className='login-page'>
         <div className='login-box'>
@@ -34,7 +36,7 @@ function Login() {
                 </div>
             </div>
             <div className='login-others'>
-                <h3>New user? <button>Sign Up</button></h3>
+                <h3>New user? <button onClick={()=>navigate("./SignUp")}>Sign Up</button></h3>
                 <p>By continuing, you acknowledge that you understand and agree to the <button>Terms & Conditions</button> and <button>Privacy Policy</button>.</p>
             </div>
         </div>

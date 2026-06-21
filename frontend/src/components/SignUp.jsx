@@ -1,7 +1,11 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 import {SiNotion} from "react-icons/si";
+
 function SignUp() {
+  const navigate=useNavigate();
   return (
+    
     <div className='signUpPage'>
       <div className='signUpCard'>
         <SiNotion size={32} className="notion-icon"/>
@@ -32,10 +36,10 @@ function SignUp() {
         </div>
         <div className="bottom">
           Existing user?
-          <button>Log in</button>
+          <button onClick={()=>navigate("/")}>Log in</button>
         </div>
         <p>By continuing,you acknowledge that you understand<br/>
-            and agree to the Terms & Conditions and Privacy Policy
+            and agree to the <button className='terms-condition'>Terms & Conditions</button> and <button className='privacy-policy'>Privacy Policy</button> 
         </p>
       </div>
 
