@@ -11,6 +11,7 @@ function App() {
   const [count, setCount] = useState(0)
   const message="hello";
   const [Active,SetActive]=useState("")
+  const [signupLogin,setSignupLogin] = useState("signup");
   return (
     <SignUp />
   //  <BrowserRouter>
@@ -24,3 +25,10 @@ function App() {
 }
 
 export default App;
+//  <BrowserRouter>
+//  <Routes>
+//   <Route path="/" element={<LandingPage />}/>
+//   <Route path="/login" element={<Login />}/>
+//   <Route path="signup" element={<SignUp />}/>
+//  </Routes>
+//  </BrowserRouter>
