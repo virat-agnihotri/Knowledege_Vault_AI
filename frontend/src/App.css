@@ -126,15 +126,13 @@
 
 .login-options fieldset{
   display: flex;
-
   flex-wrap: wrap;
   justify-content: center;
-
   gap: 12px;
 }
 
 .login-options button{
-  width: 110px;
+  width: fit-content;
   height: 80px;
   background: white;
   border: 1px solid #e5e5e5;
@@ -143,7 +141,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   gap: 8px;
   cursor: pointer;
   font-size: 14px;
