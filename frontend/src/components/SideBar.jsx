@@ -9,11 +9,13 @@ import { LuLibraryBig } from "react-icons/lu";  //library
 import { RxQuestionMarkCircled } from "react-icons/rx";  //question
 import { LuTrash2 } from "react-icons/lu";   //trash
 import { FaBookOpen } from "react-icons/fa6";  //book
+import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
+import { BsThreeDots } from "react-icons/bs";
 function SideBar(){
-    
+//===================movable window==================================== 
     const [width,setWidth]=useState(280);
     const startResize=()=>{
-        // onmousedown={startResize}
         const resize=(e)=>{setWidth(e.clientX)};
     
         const stopResize=()=>{
@@ -23,11 +25,35 @@ function SideBar(){
         window.addEventListener("mousemove",resize)
         window.addEventListener("mouseup",stopResize)
     };
+//======================agent dropdown======================================
+
     const [showAgent,setshowAgent]=useState(false);
+    const [showInput,setshowInput]=useState(false);
+    const [agentName,setagentName]=useState("");
+    const [agents,setAgents]=useState([]);
+    const addAgent=()=>{
+        if (agentName.trim()!==""){
+            setAgents([...agents,agentName]);
+            setagentName("");
+            setshowInput(false);
+        }
+    }
+//=========================Private Dropdown==========================================
     const [showPrivate,setshowPrivate]=useState(false);
+    const [showPrivateInput,setshowPrivateInput]=useState(false);
+    const [privateName,setprivateName]=useState("");
+    const [privates,setPrivates]=useState([]);
+    const addPrivate=()=>{
+        if(privateName.trim()!==""){
+            setPrivates([...privates,privateName]);
+            setprivateName("");
+            setshowPrivateInput(false);
+        }
+    }
     return(
         <div className="sidebar" >
-            <div className="sidebar-resize" style={{ width: `${width}px` }} onMouseDown={startResize} >
+            {/* ======================Movable section================================= */}
+            <div className="sidebar-resize"  onMouseDown={startResize} style={{ width: `${width}px` }} >
                 <label>user name </label>
                 <div className="sidebar-options">
                     <button><GoHome className="home-icon"/>Home</button>
@@ -36,42 +62,76 @@ function SideBar(){
                     <button><RiInbox2Line/></button>
                     <button><IoIosSearch/></button>
                 </div>
-                <div>
+                <div className="workspace">
                     <button>
                         Set up your workspace
+                        
                     </button>
                 </div>
+                {/* ========================Agents section=========================== */}
                 <div className="agents">
+                    <IoIosArrowForward/>
                     <button onClick={()=>setshowAgent(!showAgent)}>Agent</button>
                     {showAgent &&(
-                        <div>
-                            <button><FaPlus/> New agent</button>
+                        <div className="agent-options">
+                            <button onClick={()=>setshowInput(!showInput)}><FaPlus/> New agent</button>
+                            {showInput && (
+                                <input 
+                                type="text" 
+                                placeholder="Enter"
+                                value={agentName}
+                                onChange={(e)=>setagentName(e.target.value)}
+                                onKeyDown={(e)=>{
+                                    if(e.key=="Enter"){
+                                        addAgent();
+                                    }
+                                }}
+                                autoFocus
+                                />
+                            )}
+                            {agents.map((agent,index)=>(
+                                <button key={index}>{agent}</button>
+                            ))}
                         </div>
-
-                    )}
-                    
+                    )}    
                 </div>
+                {/* ======================Private Section========================*/}
                 <div className="private" >
                     <button onClick={()=>setshowPrivate(!showPrivate)}>Private</button>
                     {showPrivate && (
-                        <div>
+                        <div className="private-options">
                             <button><FaBookOpen/>
                                 The Notion Basics</button>
-                            <button><FaPlus/>
+                            <button onClick={()=>setshowPrivateInput(!showPrivateInput)}><FaPlus/>
                                 Add new</button>
+                                {showPrivateInput && (
+                                    <input 
+                                    type="text"
+                                    placeholder="Enter "
+                                    value={privateName}
+                                    onChange={(e)=>setprivateName(e.target.value)}
+                                    onKeyDown={(e)=>{
+                                        if(e.key=="Enter"){
+                                            addPrivate()
+                                        }
+                                    }}
+                                    autoFocus
+                                    />
+                                )}
+                                {privates.map((privatee,index)=>(
+                                    <button key={index}>{privatee}</button>
+                                ))}
                         </div>
                     )}
                 </div>
-                <div className="lib-he-tr">
-                    <button><LuLibraryBig/>
-                        Library
+                <div className="lib-help-trash">
+                    <button className="lib"><LuLibraryBig/>Library
                     </button>
-                    <button><RxQuestionMarkCircled/>
+                    <button className="help"><RxQuestionMarkCircled/>
                         Help
                     </button>
-                    <button><LuTrash2/>
-                        Trash
-                        
+                    <button className="trash"><LuTrash2/>
+                        Trash   
                     </button>
                 </div>
             </div>
