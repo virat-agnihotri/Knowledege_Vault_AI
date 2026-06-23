@@ -6,7 +6,6 @@ import { FaMicrosoft } from "react-icons/fa";
 import { GoPasskeyFill } from "react-icons/go";
 import { IoBusinessOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-
 function Login() {
     const navigate=useNavigate();
   return (
@@ -22,14 +21,19 @@ function Login() {
                     <label htmlFor = "email">Email</label><br/>
                     <input id = "email" type = "email" placeholder='Enter your email address...' />
                     <p>Use an organization email to easily collaborate with teammates</p>
-                    <button>Continue</button>
+                    <button onClick={()=>navigate("/sideBar")}>Continue</button>
                 </div>
                 <div className='login-options'>
                     <fieldset>
                         <legend>or continue with</legend>
                         <button><FcGoogle className='login-google-logo'/> Google</button>
                         <button><FaApple  className='login-apple-logo'/> Apple</button>
-                        <button><FaMicrosoft className='login-microsoft-logo'/> Microsoft </button>
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+                            <rect x="13" y="1" width="10" height="10" fill="#7FBA00"/>
+                            <rect x="1" y="13" width="10" height="10" fill="#00A4EF"/><rect x="13" y="13" width="10" height="10" fill="#FFB900"/></svg>
+                            Microsoft 
+                        </button>
                         <button><GoPasskeyFill className='login-passkey-logo'/> PassKey</button>
                         <button><IoBusinessOutline className='login-sso-logo'/> SSO</button>
                     </fieldset>

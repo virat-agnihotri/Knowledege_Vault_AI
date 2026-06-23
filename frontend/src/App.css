@@ -17,7 +17,7 @@
 }
 
 .login-box{
-  width: 420px;
+  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -105,6 +105,10 @@
 
 .login-options{
   margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
 }
 
 .login-options fieldset{
@@ -120,16 +124,11 @@
   font-size: 14px;
 }
 
-.login-options{
-  width: 100%;
-}
 
 .login-options fieldset{
   display: flex;
-
   flex-wrap: wrap;
   justify-content: center;
-
   gap: 12px;
 }
 
@@ -143,13 +142,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   gap: 8px;
   cursor: pointer;
   font-size: 14px;
 }
-
-
   
 .login-options button:hover{
   background: #fafafa;
@@ -160,7 +156,7 @@
 .login-microsoft-logo,
 .login-passkey-logo,
 .login-sso-logo{
-  font-size: 24px;
+  font-size: 30px;
 }
 
 .login-others{
@@ -199,33 +195,46 @@
   cursor: pointer;
 }
 .signUpPage{
+  position: relative;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: blue; */
-  min-height:100vh;
+  width: 100%;
 }
+
+.signUpPage::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("./assets/Background_Signin_Notion.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  z-index: -1;
+}
+
 .signUpCard{
   display:flex;
   flex-direction: column;
-  width: 400px;
-  height: 550px;
-  /* align-items:center; */
-  padding:40px;
+  width: 30%;
+  height: 80vh;
+  padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 5px 7px rgba(0,0,0,0.4);
   background-color:rgb(255, 255, 255);
   text-align:center;
-
-
+  align-items: center;
 }
+
 input{
   width:100%;
   border:1px solid lightblue;
   border-radius: 10px;
   padding:6px
 }
+
 .signUpCard h1{
   font-size: 20px;
   font-weight:700;
@@ -242,17 +251,17 @@ input{
   
 }
 .notion-icon{
-  margin-top: -20px;
-  margin-left:143px;
-
+  margin: 24px 0;
 }
+
 .signUpCard label{
   margin-top:17px;
-  margin-left:-247px;
+  margin-left:-300px;
   color:grey;
   margin-bottom:4px;
   font-size:13px
 }
+
 .tipbox{
   border:1px solid;
   font-size:13px;
@@ -262,17 +271,20 @@ input{
   margin-top:6px;
 }
 .continue-btn{
-  border:1px solid rgb(48, 48, 250);
+  border:1px solid transparent;
   border-radius:10px;
   padding:5px;
   color:white;
-  background-color:rgb(48, 48, 250);
+  background-color:rgb(58, 118, 222);
   margin-top:8px;
-  cursor:pointer
+  cursor:pointer;
+  width: 100%;
 }
+
 .continue-btn:hover{
-  background-color: blue;
+  background-color:rgb(39, 106, 222);
 }
+
 .divider{
   display:flex;
   align-items: center;
@@ -333,7 +345,6 @@ input{
 
 .bottom{
   margin-top: 18px;
-  
   color:grey;
   font-weight:300px;
   font-family:sans-serif;
@@ -364,43 +375,86 @@ input{
 }
 /* =====================SIDEBAR JSX========================== */
 .sidebar{
-  display:flex;
-  flex-direction:row;
-  justify-content: left;
-  background-color: rgb(134, 134, 134);
-  height:100vh;
-  color:rgb(255, 255, 255);
-  padding:15px;
-  position:relative;
-
-}
-.sidebar-resize{
-  position:absolute;
-  display:flex;
-  background-color: #202020;
+  display: flex;
   flex-direction: column;
-  cursor:ew-resize;
-  min-height: 100%;
-  top:0;
-  left:0;
+  background-color: #202020;
+  height: 100vh;
+  color: rgb(255, 255, 255);
+  position: relative;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  user-select: none;
+  overflow: visible;
 }
-.sidebar-resize label{
-  margin:10px 0px -5px 40px;
+
+.sidebar-resize{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: #323230;
+  overflow-y: auto;
+  overflow-x: hidden;
+  cursor: default;
 }
+
+.sidebar-user-mention > label{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  gap: 7px;
+}
+
+
+.sidebar-dragger{
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 6px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 100;
+  background-color: transparent;
+  transition: background-color 0.15s ease;
+}
+
+.sidebar-dragger:hover,
+.sidebar-dragger.resizing {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
 .sidebar-options{
   display: flex;
   flex-direction:row;
-  margin:20px 3px
+  padding: 15px 0;
+  gap: 12px;
+  border: 1px solid pink ;
 }
+
 .sidebar-options button{
   display:flex;
   flex-direction:row;
   align-items: center;
   cursor: pointer;
   border-radius:13px;
-  padding:2px 10px;
-  
+  gap: 4px;
+  font-size: 15px;
 }
+
+.sidebar-options div{
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-options > div > button{
+  margin: auto;
+}
+
 .sidebar-options button:hover{
   background-color:#323230;
 }
@@ -411,6 +465,7 @@ input{
   border:1px solid rgb(190, 45, 45);
   border-radius:3px;
 }
+
 /* ===========agent=================== */
 .agents {
     display: flex;
@@ -454,7 +509,11 @@ input{
 .three-dot-options:hover{
   background-color: #323320;
 }
+
+
+
 /* ================Private========================= */
+
 .private {
   display: flex;
   flex-direction: column;
@@ -518,3 +577,50 @@ input{
   cursor:pointer;
 }
 
+.divider{
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+
+.divider fieldset{
+  border: none;
+  border-top: 1px solid #e3e3e3;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.divider legend{
+  color: #999;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+
+.divider fieldset{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.divider button{
+  width: 110px;
+  height: 80px;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+  
+.divider button:hover{
+  background: #fafafa;
+}
