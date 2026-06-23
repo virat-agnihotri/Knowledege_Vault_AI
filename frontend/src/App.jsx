@@ -7,20 +7,19 @@ import Trash from "./components/trash"
 import Login from "./components/Login"
 import SignUp from "./components/SignUp";
 
-// Layout wrapper for pages that have a sidebar
 function MainLayout() {
   return (
     <div style={{ 
       display: 'flex', 
       height: '100vh', 
       overflow: 'hidden',
-      backgroundColor: '#fff'  // ← white background
+      backgroundColor: '#fff'
     }}>
       <SideBar />
       <main style={{ 
         flex: 1, 
         overflow: 'auto', 
-        backgroundColor: '#fff'  // ← white, not gray
+        backgroundColor: '#fff'
       }}>
       </main>
     </div>
@@ -35,7 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/sideBar" element={<MainLayout />} />  {/* ← use layout here */}
+        <Route path="/sideBar" element={<MainLayout />} />
       </Routes>
     </BrowserRouter>
   );

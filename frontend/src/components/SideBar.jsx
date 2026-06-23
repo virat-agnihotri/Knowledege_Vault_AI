@@ -52,7 +52,8 @@ function SideBar(){
             window.removeEventListener("mouseup", handleMouseUp);
         };
     }, [isResizing]);
-
+    // ===================== SideBar Options ===================================
+    const [showoptions,setShowOptions] = useState("Home")
     // ===================== Agent Dropdown =====================================
     const [showAgent, setshowAgent] = useState(false);
     const [showInput, setshowInput] = useState(false);
@@ -80,22 +81,20 @@ function SideBar(){
             setshowPrivateInput(false);
         }
     }
-
     return(
-        <div
-            className="sidebar"
-            style={{ width: `${width}px` }}
-        >
+        <div className="sidebar" style={{ width: `${width}px` }}>
             <div className="sidebar-resize">
-
-                <label>{userName}<FaUserTie className="user-icon"/></label>
-
+                <div className="sidebar-user-mention">
+                   <label><FaUserTie className="user-icon"/>{`${userName}'s Space`}</label>
+                </div>
                 <div className="sidebar-options">
-                    <button><GoHome className="home-icon"/>Home</button>
-                    <button><IoChatbubbleOutline/></button>
-                    <button><PiNotepad/></button>
-                    <button><RiInbox2Line/></button>
-                    <button><IoIosSearch/></button>
+                    <button onClick={()=>setShowOptions("Home")}><GoHome className="home-icon"/>{showoptions == "Home" ? "Home" : ""}</button>
+                    <button onClick={()=>setShowOptions("Chat")}><IoChatbubbleOutline/>{showoptions == "Chat" ? "Chat" : ""}</button>
+                    <button onClick={()=>setShowOptions("Meetings")}><PiNotepad/>{showoptions == "Meetings" ? "Meetings" : ""}</button>
+                    <button onClick={()=>setShowOptions("Inbox")}><RiInbox2Line/>{showoptions == "Inbox" ? "Inbox" : ""}</button>
+                    <div>
+                        <button><IoIosSearch/></button>
+                    </div>
                 </div>
 
                 <div className="workspace">
