@@ -4,7 +4,7 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiInbox2Line } from "react-icons/ri";
 import { IoIosSearch } from "react-icons/io";
 import { PiNotepad } from "react-icons/pi";
-import { FaPlus } from "react-icons/fa6";
+import { FaArrowDown, FaPlus } from "react-icons/fa6";
 import { LuLibraryBig } from "react-icons/lu";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuTrash2 } from "react-icons/lu";
@@ -13,12 +13,14 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { BsThreeDots } from "react-icons/bs";
 import { FaUserTie } from "react-icons/fa6";
+import { BsPencilSquare } from "react-icons/bs";
+import { RxDoubleArrowLeft } from "react-icons/rx";
 
 function SideBar(){
     const [userName, setuserName] = useState("Virat")
 
     // =================== Resizable Sidebar ====================================
-    const [width, setWidth] = useState(280);
+    const [width, setWidth] = useState(270);
     const [isResizing, setIsResizing] = useState(false);
     const dragInfo = useRef({ startX: 0, startWidth: 0 });
 
@@ -37,7 +39,7 @@ function SideBar(){
         const handleMouseMove = (e) => {
             const deltaX = e.clientX - dragInfo.current.startX;
             const newWidth = dragInfo.current.startWidth + deltaX;
-            setWidth(Math.max(220, Math.min(500, newWidth)));
+            setWidth(Math.max(270, Math.min(600, newWidth)));
         };
 
         const handleMouseUp = () => {
@@ -59,7 +61,6 @@ function SideBar(){
     const [showInput, setshowInput] = useState(false);
     const [agentName, setagentName] = useState("");
     const [agents, setAgents] = useState([]);
-
     const addAgent = () => {
         if (agentName.trim() !== "") {
             setAgents([...agents, agentName]);
@@ -67,6 +68,7 @@ function SideBar(){
             setshowInput(false);
         }
     }
+    const [showArrow,setshowArrow]=useState(false);
 
     // ===================== Private Dropdown ===================================
     const [showPrivate, setshowPrivate] = useState(false);
@@ -82,17 +84,18 @@ function SideBar(){
         }
     }
     return(
+        // ===============================workspace options================================
         <div className="sidebar" style={{ width: `${width}px` }}>
             <div className="sidebar-resize">
                 <div className="sidebar-user-mention">
-                   <label><FaUserTie className="user-icon"/>{`${userName}'s Space`}</label>
+                   <label><FaUserTie className="user-icon"/>{`${userName}'s Space`}<button><IoIosArrowDown/></button><button className="double-arrow-icon"><RxDoubleArrowLeft/></button></label>
                 </div>
                 <div className="sidebar-options">
                     <button onClick={()=>setShowOptions("Home")}><GoHome className="home-icon"/>{showoptions == "Home" ? "Home" : ""}</button>
                     <button onClick={()=>setShowOptions("Chat")}><IoChatbubbleOutline/>{showoptions == "Chat" ? "Chat" : ""}</button>
                     <button onClick={()=>setShowOptions("Meetings")}><PiNotepad/>{showoptions == "Meetings" ? "Meetings" : ""}</button>
                     <button onClick={()=>setShowOptions("Inbox")}><RiInbox2Line/>{showoptions == "Inbox" ? "Inbox" : ""}</button>
-                    <div>
+                    <div className="search-end">
                         <button><IoIosSearch/></button>
                     </div>
                 </div>
@@ -103,14 +106,17 @@ function SideBar(){
 
                 {/* ======================== Agents ========================== */}
                 <div className="agents">
-                    <div className="agents-header">
+                    <div className="agents-header" onClick={() => setshowAgent(!showAgent)}>
+                        <button >Agents</button>
                         {showAgent ? (
-                            <IoIosArrowDown onClick={() => setshowAgent(false)}/>
+                            <IoIosArrowDown className="arrow" onClick={() => setshowAgent(false)}/>
                         ) : (
-                            <IoIosArrowForward onClick={() => setshowAgent(true)}/>
+                            <IoIosArrowForward className="arrow" onClick={() => setshowAgent(true)}/>
                         )}
-                        <button onClick={() => setshowAgent(!showAgent)}>Agent</button>
-                        <button className="three-dot-options"><BsThreeDots /></button>
+                        
+                        <div className="three-end">
+                            <button className="three-dot-options"><BsThreeDots /></button>
+                        </div>
                     </div>
                     {showAgent && (
                         <div className="agent-options">
@@ -136,14 +142,19 @@ function SideBar(){
 
                 {/* ====================== Private ========================== */}
                 <div className="private">
-                    <div className="private-headers">
+                    <div className="private-headers" onClick={() => setshowPrivate(!showPrivate)}>
+                        <button >Private</button>
                         {showPrivate ? (
-                            <IoIosArrowDown onClick={() => setshowPrivate(false)}/>
+                            <IoIosArrowDown className="arrow" onClick={() => setshowPrivate(false)}/>
                         ) : (
-                            <IoIosArrowForward onClick={() => setshowPrivate(true)}/>
+                            <IoIosArrowForward className="arrow" onClick={() => setshowPrivate(true)}/>
                         )}
-                        <button onClick={() => setshowPrivate(!showPrivate)}>Private</button>
-                        <button className="three-dot-options"><BsThreeDots/></button>
+                        
+                        <div className="three-end">
+                            <button className="three-dot-options"><LuLibraryBig/></button>
+                            <button className="three-dot-options"><BsThreeDots/></button>
+                            <button className="three-dot-options"><FaPlus/></button>
+                        </div>
                     </div>
                     {showPrivate && (
                         <div className="private-options">
@@ -162,7 +173,9 @@ function SideBar(){
                                 />
                             )}
                             {privates.map((privatee, index) => (
-                                <button key={index}>{privatee}</button>
+                                <button key={index}><IoIosArrowForward/>{privatee} 
+                                <div className="dot-plus-last"><button><BsThreeDots/></button>
+                                <button><FaPlus className="plus-last"/></button></div></button>
                             ))}
                         </div>
                     )}
@@ -172,6 +185,10 @@ function SideBar(){
                     <button className="lib"><LuLibraryBig/>Library</button>
                     <button className="help"><RxQuestionMarkCircled/>Help</button>
                     <button className="trash"><LuTrash2/>Trash</button>
+                </div>
+                <div className="open-new-chat">
+                    <button className="new-chat-btn">New Chat <p>Ctrl+o</p></button>
+                    <button className="pencil-logo"><BsPencilSquare/></button>
                 </div>
             </div>
 

@@ -384,7 +384,7 @@ input{
   box-sizing: border-box;
   flex-shrink: 0;
   padding: 0;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid #202020;
   user-select: none;
   overflow: visible;
 }
@@ -396,10 +396,17 @@ input{
   height: 100%;
   box-sizing: border-box;
   padding: 10px;
-  background-color: #323230;
+  background-color: #202020;
   overflow-y: auto;
   overflow-x: hidden;
   cursor: default;
+}
+.sidebar-user-mention:hover{
+  cursor:pointer;
+  border:1px solid brown;
+  border-radius: 4px;
+  background-color:#1d74c9
+
 }
 
 .sidebar-user-mention > label{
@@ -409,7 +416,15 @@ input{
   align-items: center;
   gap: 7px;
 }
-
+.double-arrow-icon{
+  margin-left:auto;
+  border:1px solid green;
+  border-radius:4px;
+  cursor:pointer;
+}
+.double-arrow-icon:hover{
+  background-color:aqua;
+}
 
 .sidebar-dragger{
   position: absolute;
@@ -425,7 +440,7 @@ input{
 
 .sidebar-dragger:hover,
 .sidebar-dragger.resizing {
-  background-color: rgba(255, 255, 255, 0.12);
+  background-color: #202020;
 }
 
 .sidebar-options{
@@ -433,7 +448,7 @@ input{
   flex-direction:row;
   padding: 15px 0;
   gap: 12px;
-  border: 1px solid pink ;
+  border: 1px solid #202020 ;
 }
 
 .sidebar-options button{
@@ -444,6 +459,8 @@ input{
   border-radius:13px;
   gap: 4px;
   font-size: 15px;
+  background-color: pink;
+  padding:0px 4px
 }
 
 .sidebar-options div{
@@ -456,13 +473,19 @@ input{
 }
 
 .sidebar-options button:hover{
-  background-color:#323230;
+  background-color:#373735
 }
+.search-end{
+  display:flex;
+  justify-content:flex-end;
+  margin-left:auto;
+}
+
 .workspace button{
   cursor:pointer;
 }
 .workspace:hover{
-  border:1px solid rgb(190, 45, 45);
+  border:1px solid #202020;
   border-radius:3px;
 }
 
@@ -471,11 +494,6 @@ input{
     display: flex;
     flex-direction: column;
 }
-.agents-header:hover{
-  border:1px solid red;
-  border-radius:4px;
-  cursor:pointer;
-}
 .agents button{
   cursor:pointer;
 
@@ -483,13 +501,33 @@ input{
 .agents-header {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap:4px
+
+}
+
+.agents-header:hover{
+  border:1px solid #373735;
+  border-radius:4px;
+  cursor:pointer;
+  background-color: #373735;
+}
+
+.agents-header:hover .arrow,
+.agents-header:hover .three-dot-options,
+.private-headers:hover .arrow,
+.private-headers:hover .three-dot-options,
+.agents.open .arrow,
+.agents.open .three-dot-options,
+.private.open .arrow,
+.private.open .three-dot-options{
+  opacity:1;
+  visibility:visible
 }
 
 .agent-options {
     display: flex;
     flex-direction: column;
-    margin-left: 20px; /* makes it appear below Agent */
+    /* makes it appear below Agent */
     gap: 5px;
 }
 
@@ -500,14 +538,22 @@ input{
     border: 1px solid;
 }
 .agent-options button:hover{
-  background-color: #323320;
+  background-color: #373735
 }
+.arrow,
 .three-dot-options{
-  border: 1px solid red;
+  border: none;
   border-radius:4px;
+  opacity:0;
+  visibility:hidden;
+  transition:0.2s;
+  background:none;
+  cursor:pointer;
+
+  
 }
 .three-dot-options:hover{
-  background-color: #323320;
+  background-color: #373735;
 }
 
 
@@ -530,13 +576,20 @@ input{
 .private-headers {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap:4px;
+    
+    
+}
+.three-end{
+  display:flex;
+  justify-content:flex-end;
+  margin-left:auto;
+  gap:8px;
 }
 
 .private-options {
     display: flex;
     flex-direction: column;
-    margin-left: 20px; /* makes it appear below Agent */
     gap: 5px;
 }
 
@@ -544,12 +597,18 @@ input{
     display: flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid;
+    border: 1px solid purple;
 }
 .private-options button:hover{
-  background-color: #323320;
+  background-color: #9a9f2d;
 }
 
+.dot-plus-last{
+  display: flex;
+  gap:4px;
+  margin-left:auto;
+}
+/* =====================librry help trash============= */
 .lib-help-trash{
   display:flex;
   flex-direction: column;
@@ -559,7 +618,7 @@ input{
   display:flex;
   flex-direction:row;
   align-items:center;
-  margin:2px 11px;
+  margin:2px 1px;
   gap:8px;
   border:1px solid #202020;
   border-radius:5px;
@@ -576,6 +635,44 @@ input{
   background-color: #323230;
   cursor:pointer;
 }
+.open-new-chat{
+  display:flex;
+  flex-direction:row;
+  margin-top:auto;
+  
+  
+}
+.new-chat-btn{
+  display:flex;
+  flex-direction:row;
+  border:1px solid pink;
+  border-radius:6px;
+  padding:10px;
+  cursor:pointer;
+  align-items:center;
+}
+.new-chat-btn:hover{
+  background-color:green;
+}
+.new-chat-btn p{
+  margin-left:10px;
+  border:1px solid blue;
+  border-radius:4px;
+  background-color: yellow;
+}
+.pencil-logo{
+  border:1px solid red;
+  padding:4px 16px;
+  border-radius:20px;
+  cursor:pointer;
+  margin-left:auto;
+}
+.pencil-logo:hover{
+  background-color:green;
+}
+
+/* ======================================== */
+
 
 .divider{
   margin-top: 30px;
