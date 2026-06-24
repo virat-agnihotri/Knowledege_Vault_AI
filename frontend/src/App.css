@@ -228,7 +228,7 @@
   align-items: center;
 }
 
-input{
+.signUpCard input{
   width:100%;
   border:1px solid lightblue;
   border-radius: 10px;
@@ -373,308 +373,506 @@ input{
   text-decoration: underline;
 
 }
-/* =====================SIDEBAR JSX========================== */
-.sidebar{
+/* ===================== SIDEBAR — NOTION DARK THEME ===================== */
+
+:root {
+  --sb-bg:           #191919;
+  --sb-hover:        rgba(255, 255, 255, 0.055);
+  --sb-active:       rgba(255, 255, 255, 0.09);
+  --sb-text:         rgba(255, 255, 255, 0.81);
+  --sb-muted:        rgba(255, 255, 255, 0.40);
+  --sb-accent:       #2383e2;
+  --sb-border:       rgba(255, 255, 255, 0.07);
+  --sb-radius:       6px;
+  --sb-font:         'Inter', system-ui, -apple-system, sans-serif;
+  --sb-item-h:       30px;
+  --sb-icon-sz:      16px;
+  --sb-icon-color:   rgba(255, 255, 255, 0.55);
+  --sb-input-bg:     rgba(255, 255, 255, 0.06);
+  --sb-input-border: rgba(255, 255, 255, 0.12);
+  --sb-shadow:       0 1px 3px rgba(0, 0, 0, 0.4);
+  --sb-transition:   120ms ease;
+}
+
+.sidebar {
   display: flex;
   flex-direction: column;
-  background-color: #202020;
+  background-color: var(--sb-bg);
   height: 100vh;
-  color: rgb(255, 255, 255);
+  color: var(--sb-text);
+  font-family: var(--sb-font);
+  font-size: 14px;
   position: relative;
   box-sizing: border-box;
   flex-shrink: 0;
-  padding: 0;
-  border-right: 1px solid #202020;
   user-select: none;
   overflow: visible;
+  border-right: 1px solid var(--sb-border);
 }
 
-.sidebar-resize{
+.sidebar-inner {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: 10px;
-  background-color: #202020;
+  overflow: hidden;
+}
+
+/* ── Top region (workspace + nav) ───────────────────────────────────────── */
+
+.sb-top {
+  flex-shrink: 0;
+  padding: 6px 8px 2px;
+}
+
+.sb-workspace {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding: 0 4px;
+  border-radius: var(--sb-radius);
+  cursor: pointer;
+  transition: background var(--sb-transition);
+  margin-bottom: 4px;
+}
+
+.sb-workspace:hover {
+  background: var(--sb-hover);
+}
+
+.sb-workspace-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.sb-workspace-avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sb-avatar-icon {
+  font-size: 12px;
+  color: var(--sb-text);
+}
+
+.sb-workspace-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--sb-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sb-workspace-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* ── Nav items ──────────────────────────────────────────────────────────── */
+
+.sb-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 2px 0;
+}
+
+.sb-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: var(--sb-item-h);
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--sb-radius);
+  background: transparent;
+  color: var(--sb-text);
+  font-family: var(--sb-font);
+  font-size: 13.5px;
+  font-weight: 400;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background var(--sb-transition);
+  text-align: left;
+}
+
+.sb-nav-item:hover {
+  background: var(--sb-hover);
+}
+
+.sb-nav-item--active {
+  background: var(--sb-active);
+  font-weight: 500;
+}
+
+.sb-nav-item--active:hover {
+  background: var(--sb-active);
+}
+
+.sb-nav-icon {
+  font-size: var(--sb-icon-sz);
+  color: var(--sb-icon-color);
+  flex-shrink: 0;
+}
+
+.sb-nav-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sb-nav-shortcut {
+  font-size: 11px;
+  color: var(--sb-muted);
+  margin-left: auto;
+  flex-shrink: 0;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* ── Workspace setup banner ─────────────────────────────────────────────── */
+
+
+.sb-setup-btn {
+  width: 100%;
+  height: var(--sb-item-h);
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--sb-radius);
+  background: transparent;
+  color: var(--sb-muted);
+  font-family: var(--sb-font);
+  font-size: 12.5px;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--sb-transition), color var(--sb-transition);
+}
+
+.sb-setup-btn:hover {
+  background: var(--sb-hover);
+  color: var(--sb-text);
+}
+
+/* ── Middle region (scrollable sections) ────────────────────────────────── */
+
+.sb-middle {
+  flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  cursor: default;
-}
-.sidebar-user-mention:hover{
-  cursor:pointer;
-  border:1px solid brown;
-  border-radius: 4px;
-  background-color:#1d74c9
-
-}
-
-.sidebar-user-mention > label{
+  padding: 4px 8px;
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  gap: 7px;
-}
-.double-arrow-icon{
-  margin-left:auto;
-  border:1px solid green;
-  border-radius:4px;
-  cursor:pointer;
-}
-.double-arrow-icon:hover{
-  background-color:aqua;
+  flex-direction: column;
+  gap: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.10) transparent;
 }
 
-.sidebar-dragger{
+.sb-middle::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sb-middle::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sb-middle::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 2px;
+}
+
+/* ── Section (Agents / Private) ─────────────────────────────────────────── */
+
+.sb-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2px;
+}
+
+.sb-section-header {
+  display: flex;
+  align-items: center;
+  height: var(--sb-item-h);
+  padding: 0 4px 0 2px;
+  border-radius: var(--sb-radius);
+  cursor: pointer;
+  transition: background var(--sb-transition);
+  gap: 2px;
+}
+
+.sb-section-header:hover {
+  background: var(--sb-hover);
+}
+
+.sb-section-header:hover .sb-section-actions,
+.sb-section-header--open .sb-section-actions {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sb-section-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  color: var(--sb-muted);
+  cursor: pointer;
+  border-radius: 4px;
+  flex-shrink: 0;
+  transition: color var(--sb-transition);
+  padding: 0;
+}
+
+.sb-section-arrow:hover {
+  color: var(--sb-text);
+}
+
+.sb-arrow-icon {
+  font-size: 11px;
+}
+
+.sb-section-title {
+  flex: 1;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--sb-muted);
+  text-transform: uppercase;
+}
+
+.sb-section-actions {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--sb-transition), visibility var(--sb-transition);
+}
+
+.sb-section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-left: 8px;
+}
+
+/* ── Generic icon button ────────────────────────────────────────────────── */
+
+.sb-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--sb-muted);
+  cursor: pointer;
+  font-size: 13px;
+  transition: background var(--sb-transition), color var(--sb-transition);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.sb-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.10);
+  color: var(--sb-text);
+}
+
+/* ── Add / page items ───────────────────────────────────────────────────── */
+
+.sb-add-item {
+  color: var(--sb-muted);
+}
+
+.sb-add-item:hover {
+  color: var(--sb-text);
+}
+
+.sb-add-icon {
+  font-size: 12px;
+}
+
+.sb-page-item {
+  padding-left: 6px;
+}
+
+.sb-chevron-icon {
+  font-size: 10px;
+  color: var(--sb-muted);
+}
+
+.sb-page-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: var(--sb-radius);
+}
+
+.sb-page-row .sb-nav-item {
+  flex: 1;
+}
+
+.sb-page-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--sb-transition), visibility var(--sb-transition);
+  position: absolute;
+  right: 4px;
+}
+
+.sb-page-row:hover .sb-page-row-actions {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Inline input ───────────────────────────────────────────────────────── */
+
+.sb-inline-input {
+  width: 100%;
+  height: 28px;
+  padding: 0 8px;
+  margin: 2px 0;
+  border: 1px solid var(--sb-input-border);
+  border-radius: var(--sb-radius);
+  background: var(--sb-input-bg);
+  color: var(--sb-text);
+  font-family: var(--sb-font);
+  font-size: 13px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color var(--sb-transition);
+}
+
+.sb-inline-input::placeholder {
+  color: var(--sb-muted);
+}
+
+.sb-inline-input:focus {
+  border-color: var(--sb-accent);
+}
+
+/* ── Bottom region (Library / Help / Trash) ─────────────────────────────── */
+
+.sb-bottom {
+  flex-shrink: 0;
+  padding: 2px 8px 4px;
+  border-top: 1px solid var(--sb-border);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* ── Footer (New Chat + Pencil) ─────────────────────────────────────────── */
+
+.sb-footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 10px;
+  border-top: 1px solid var(--sb-border);
+}
+
+.sb-new-chat-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 10px;
+  border: none;
+  border-radius: var(--sb-radius);
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--sb-text);
+  font-family: var(--sb-font);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--sb-transition);
+}
+
+.sb-new-chat-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sb-new-chat-label {
+  white-space: nowrap;
+}
+
+.sb-new-chat-shortcut {
+  font-size: 11px;
+  color: var(--sb-muted);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.sb-pencil-btn {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: var(--sb-radius);
+  font-size: 14px;
+}
+
+.sb-pencil-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--sb-text);
+}
+
+.sb-collapse-btn {
+  opacity: 0;
+  transition: opacity var(--sb-transition), background var(--sb-transition), color var(--sb-transition);
+}
+
+.sb-workspace:hover .sb-collapse-btn {
+  opacity: 1;
+}
+
+/* ── Resize handle ──────────────────────────────────────────────────────── */
+
+.sidebar-dragger {
   position: absolute;
   top: 0;
-  right: -3px;
-  width: 6px;
+  right: 0;
+  width: 4px;
   height: 100%;
   cursor: col-resize;
-  z-index: 100;
-  background-color: transparent;
-  transition: background-color 0.15s ease;
+  z-index: 200;
+  background: transparent;
+  transition: background 150ms ease;
 }
 
 .sidebar-dragger:hover,
 .sidebar-dragger.resizing {
-  background-color: #202020;
+  background: rgba(255, 255, 255, 0.13);
 }
 
-.sidebar-options{
-  display: flex;
-  flex-direction:row;
-  padding: 15px 0;
-  gap: 12px;
-  border: 1px solid #202020 ;
-}
+/* ── Divider (shared, used in login/signup) ─────────────────────────────── */
 
-.sidebar-options button{
-  display:flex;
-  flex-direction:row;
-  align-items: center;
-  cursor: pointer;
-  border-radius:13px;
-  gap: 4px;
-  font-size: 15px;
-  background-color: pink;
-  padding:0px 4px
-}
-
-.sidebar-options div{
-  display: flex;
-  align-items: center;
-}
-
-.sidebar-options > div > button{
-  margin: auto;
-}
-
-.sidebar-options button:hover{
-  background-color:#373735
-}
-.search-end{
-  display:flex;
-  justify-content:flex-end;
-  margin-left:auto;
-}
-
-.workspace button{
-  cursor:pointer;
-}
-.workspace:hover{
-  border:1px solid #202020;
-  border-radius:3px;
-}
-
-/* ===========agent=================== */
-.agents {
-    display: flex;
-    flex-direction: column;
-}
-.agents button{
-  cursor:pointer;
-
-}
-.agents-header {
-    display: flex;
-    align-items: center;
-    gap:4px
-
-}
-
-.agents-header:hover{
-  border:1px solid #373735;
-  border-radius:4px;
-  cursor:pointer;
-  background-color: #373735;
-}
-
-.agents-header:hover .arrow,
-.agents-header:hover .three-dot-options,
-.private-headers:hover .arrow,
-.private-headers:hover .three-dot-options,
-.agents.open .arrow,
-.agents.open .three-dot-options,
-.private.open .arrow,
-.private.open .three-dot-options{
-  opacity:1;
-  visibility:visible
-}
-
-.agent-options {
-    display: flex;
-    flex-direction: column;
-    /* makes it appear below Agent */
-    gap: 5px;
-}
-
-.agent-options button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid;
-}
-.agent-options button:hover{
-  background-color: #373735
-}
-.arrow,
-.three-dot-options{
-  border: none;
-  border-radius:4px;
-  opacity:0;
-  visibility:hidden;
-  transition:0.2s;
-  background:none;
-  cursor:pointer;
-
-  
-}
-.three-dot-options:hover{
-  background-color: #373735;
-}
-
-
-
-/* ================Private========================= */
-
-.private {
-  display: flex;
-  flex-direction: column;
-}
-.private-headers:hover{
-  border:1px solid red;
-  border-radius:4px;
-  cursor:pointer;
-}
-.private button{
-  cursor:pointer;
-
-}
-.private-headers {
-    display: flex;
-    align-items: center;
-    gap:4px;
-    
-    
-}
-.three-end{
-  display:flex;
-  justify-content:flex-end;
-  margin-left:auto;
-  gap:8px;
-}
-
-.private-options {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.private-options button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid purple;
-}
-.private-options button:hover{
-  background-color: #9a9f2d;
-}
-
-.dot-plus-last{
-  display: flex;
-  gap:4px;
-  margin-left:auto;
-}
-/* =====================librry help trash============= */
-.lib-help-trash{
-  display:flex;
-  flex-direction: column;
-  
-}
-.lib-help-trash button{
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  margin:2px 1px;
-  gap:8px;
-  border:1px solid #202020;
-  border-radius:5px;
-}
-.lib:hover{
-  background-color: #323230;
-  cursor:pointer;
-}
-.help:hover{
-  background-color: #323230;
-  cursor:pointer;
-}
-.trash:hover{
-  background-color: #323230;
-  cursor:pointer;
-}
-.open-new-chat{
-  display:flex;
-  flex-direction:row;
-  margin-top:auto;
-  
-  
-}
-.new-chat-btn{
-  display:flex;
-  flex-direction:row;
-  border:1px solid pink;
-  border-radius:6px;
-  padding:10px;
-  cursor:pointer;
-  align-items:center;
-}
-.new-chat-btn:hover{
-  background-color:green;
-}
-.new-chat-btn p{
-  margin-left:10px;
-  border:1px solid blue;
-  border-radius:4px;
-  background-color: yellow;
-}
-.pencil-logo{
-  border:1px solid red;
-  padding:4px 16px;
-  border-radius:20px;
-  cursor:pointer;
-  margin-left:auto;
-}
-.pencil-logo:hover{
-  background-color:green;
-}
-
-/* ======================================== */
-
-
-.divider{
+.divider {
   margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
@@ -682,28 +880,24 @@ input{
   width: 100%;
 }
 
-.divider fieldset{
+.divider fieldset {
   border: none;
   border-top: 1px solid #e3e3e3;
   text-align: center;
   padding-top: 20px;
-}
-
-.divider legend{
-  color: #999;
-  padding: 0 12px;
-  font-size: 14px;
-}
-
-
-.divider fieldset{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
 }
 
-.divider button{
+.divider legend {
+  color: #999;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.divider button {
   width: 110px;
   height: 80px;
   background: white;
@@ -717,7 +911,8 @@ input{
   cursor: pointer;
   font-size: 14px;
 }
-  
-.divider button:hover{
+
+.divider button:hover {
   background: #fafafa;
 }
+

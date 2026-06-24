@@ -4,7 +4,7 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiInbox2Line } from "react-icons/ri";
 import { IoIosSearch } from "react-icons/io";
 import { PiNotepad } from "react-icons/pi";
-import { FaArrowDown, FaPlus } from "react-icons/fa6";
+import { FaPlus } from "react-icons/fa6";
 import { LuLibraryBig } from "react-icons/lu";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuTrash2 } from "react-icons/lu";
@@ -16,10 +16,9 @@ import { FaUserTie } from "react-icons/fa6";
 import { BsPencilSquare } from "react-icons/bs";
 import { RxDoubleArrowLeft } from "react-icons/rx";
 
-function SideBar(){
-    const [userName, setuserName] = useState("Virat")
+function SideBar() {
+    const [userName, setuserName] = useState("Virat");
 
-    // =================== Resizable Sidebar ====================================
     const [width, setWidth] = useState(270);
     const [isResizing, setIsResizing] = useState(false);
     const dragInfo = useRef({ startX: 0, startWidth: 0 });
@@ -39,7 +38,7 @@ function SideBar(){
         const handleMouseMove = (e) => {
             const deltaX = e.clientX - dragInfo.current.startX;
             const newWidth = dragInfo.current.startWidth + deltaX;
-            setWidth(Math.max(270, Math.min(600, newWidth)));
+            setWidth(Math.max(220, Math.min(480, newWidth)));
         };
 
         const handleMouseUp = () => {
@@ -54,9 +53,9 @@ function SideBar(){
             window.removeEventListener("mouseup", handleMouseUp);
         };
     }, [isResizing]);
-    // ===================== SideBar Options ===================================
-    const [showoptions,setShowOptions] = useState("Home")
-    // ===================== Agent Dropdown =====================================
+
+    const [showoptions, setShowOptions] = useState("Home");
+
     const [showAgent, setshowAgent] = useState(false);
     const [showInput, setshowInput] = useState(false);
     const [agentName, setagentName] = useState("");
@@ -67,10 +66,9 @@ function SideBar(){
             setagentName("");
             setshowInput(false);
         }
-    }
-    const [showArrow,setshowArrow]=useState(false);
+    };
+    const [showArrow, setshowArrow] = useState(false);
 
-    // ===================== Private Dropdown ===================================
     const [showPrivate, setshowPrivate] = useState(false);
     const [showPrivateInput, setshowPrivateInput] = useState(false);
     const [privateName, setprivateName] = useState("");
@@ -82,121 +80,166 @@ function SideBar(){
             setprivateName("");
             setshowPrivateInput(false);
         }
-    }
-    return(
-        // ===============================workspace options================================
+    };
+
+    return (
         <div className="sidebar" style={{ width: `${width}px` }}>
-            <div className="sidebar-resize">
-                <div className="sidebar-user-mention">
-                   <label><FaUserTie className="user-icon"/>{`${userName}'s Space`}<button><IoIosArrowDown/></button><button className="double-arrow-icon"><RxDoubleArrowLeft/></button></label>
-                </div>
-                <div className="sidebar-options">
-                    <button onClick={()=>setShowOptions("Home")}><GoHome className="home-icon"/>{showoptions == "Home" ? "Home" : ""}</button>
-                    <button onClick={()=>setShowOptions("Chat")}><IoChatbubbleOutline/>{showoptions == "Chat" ? "Chat" : ""}</button>
-                    <button onClick={()=>setShowOptions("Meetings")}><PiNotepad/>{showoptions == "Meetings" ? "Meetings" : ""}</button>
-                    <button onClick={()=>setShowOptions("Inbox")}><RiInbox2Line/>{showoptions == "Inbox" ? "Inbox" : ""}</button>
-                    <div className="search-end">
-                        <button><IoIosSearch/></button>
-                    </div>
-                </div>
+            <div className="sidebar-inner">
 
-                <div className="workspace">
-                    <button>Set up your workspace</button>
-                </div>
-
-                {/* ======================== Agents ========================== */}
-                <div className="agents">
-                    <div className="agents-header" onClick={() => setshowAgent(!showAgent)}>
-                        <button >Agents</button>
-                        {showAgent ? (
-                            <IoIosArrowDown className="arrow" onClick={() => setshowAgent(false)}/>
-                        ) : (
-                            <IoIosArrowForward className="arrow" onClick={() => setshowAgent(true)}/>
-                        )}
-                        
-                        <div className="three-end">
-                            <button className="three-dot-options"><BsThreeDots /></button>
+                <div className="sb-top">
+                    <div className="sb-workspace">
+                        <div className="sb-workspace-left">
+                            <div className="sb-workspace-avatar">
+                                <FaUserTie className="sb-avatar-icon" />
+                            </div>
+                            <span className="sb-workspace-name">{`${userName}'s Space`}</span>
+                            <span><IoIosArrowDown className="sb-arrow-icon" /> </span>
                         </div>
-                    </div>
-                    {showAgent && (
-                        <div className="agent-options">
-                            <button onClick={() => setshowInput(!showInput)}>
-                                <FaPlus />New agent
+                        <div className="sb-workspace-actions">
+                            <button className="sb-icon-btn sb-collapse-btn" title="Close sidebar">
+                                <RxDoubleArrowLeft />
                             </button>
-                            {showInput && (
-                                <input
-                                    type="text"
-                                    placeholder="Enter"
-                                    value={agentName}
-                                    onChange={(e) => setagentName(e.target.value)}
-                                    onKeyDown={(e) => { if (e.key === "Enter") addAgent(); }}
-                                    autoFocus
-                                />
-                            )}
-                            {agents.map((agent, index) => (
-                                <button key={index}>{agent}</button>
-                            ))}
-                        </div>
-                    )}
-                </div>
-
-                {/* ====================== Private ========================== */}
-                <div className="private">
-                    <div className="private-headers" onClick={() => setshowPrivate(!showPrivate)}>
-                        <button >Private</button>
-                        {showPrivate ? (
-                            <IoIosArrowDown className="arrow" onClick={() => setshowPrivate(false)}/>
-                        ) : (
-                            <IoIosArrowForward className="arrow" onClick={() => setshowPrivate(true)}/>
-                        )}
-                        
-                        <div className="three-end">
-                            <button className="three-dot-options"><LuLibraryBig/></button>
-                            <button className="three-dot-options"><BsThreeDots/></button>
-                            <button className="three-dot-options"><FaPlus/></button>
                         </div>
                     </div>
-                    {showPrivate && (
-                        <div className="private-options">
-                            <button><FaBookOpen/>The Notion Basics</button>
-                            <button onClick={() => setshowPrivateInput(!showPrivateInput)}>
-                                <FaPlus/>Add new
-                            </button>
-                            {showPrivateInput && (
-                                <input
-                                    type="text"
-                                    placeholder="Enter"
-                                    value={privateName}
-                                    onChange={(e) => setprivateName(e.target.value)}
-                                    onKeyDown={(e) => { if (e.key === "Enter") addPrivate(); }}
-                                    autoFocus
-                                />
-                            )}
-                            {privates.map((privatee, index) => (
-                                <button key={index}><IoIosArrowForward/>{privatee} 
-                                <div className="dot-plus-last"><button><BsThreeDots/></button>
-                                <button><FaPlus className="plus-last"/></button></div></button>
-                            ))}
-                        </div>
-                    )}
+
+                    <nav className="sb-nav">
+                        <button className={`sb-nav-item${showoptions === "Home" ? " sb-nav-item--active" : ""}`} onClick={() => setShowOptions("Home")}>
+                            <GoHome className="sb-nav-icon" />
+                            <span className="sb-nav-label">Home</span>
+                        </button>
+                        <button className={`sb-nav-item${showoptions === "Search" ? " sb-nav-item--active" : ""}`} onClick={() => setShowOptions("Search")}>
+                            <IoIosSearch className="sb-nav-icon" />
+                            <span className="sb-nav-label">Search</span>
+                        </button>
+
+                        <button className={`sb-nav-item${showoptions === "Chat" ? " sb-nav-item--active" : ""}`} onClick={() => setShowOptions("Chat")}>
+                            <IoChatbubbleOutline className="sb-nav-icon" />
+                            <span className="sb-nav-label">Chat</span>
+                        </button>
+
+                        <button className={`sb-nav-item${showoptions === "Meetings" ? " sb-nav-item--active" : ""}`} onClick={() => setShowOptions("Meetings")}>
+                            <PiNotepad className="sb-nav-icon" />
+                            <span className="sb-nav-label">Meetings</span>
+                        </button>
+
+                        <button className={`sb-nav-item${showoptions === "Inbox" ? " sb-nav-item--active" : ""}`} onClick={() => setShowOptions("Inbox")}>
+                            <RiInbox2Line className="sb-nav-icon" />
+                            <span className="sb-nav-label">Inbox</span>
+                        </button>
+                    </nav>
                 </div>
 
-                <div className="lib-help-trash">
-                    <button className="lib"><LuLibraryBig/>Library</button>
-                    <button className="help"><RxQuestionMarkCircled/>Help</button>
-                    <button className="trash"><LuTrash2/>Trash</button>
+                <div className="sb-middle">
+
+                    <div className="sb-section">
+                        <div className={`sb-section-header${showAgent ? " sb-section-header--open" : ""}`} onClick={() => setshowAgent(!showAgent)}>
+                            <button className="sb-section-arrow">
+                                {showAgent ? <IoIosArrowDown className="sb-arrow-icon" /> : <IoIosArrowForward className="sb-arrow-icon" />}
+                            </button>
+                            <span className="sb-section-title">Agents</span>
+                            <div className="sb-section-actions">
+                                <button className="sb-icon-btn" onClick={(e) => { e.stopPropagation(); }} title="Options">
+                                    <BsThreeDots />
+                                </button>
+                                <button className="sb-icon-btn" onClick={(e) => { e.stopPropagation(); setshowInput(!showInput); setshowAgent(true); }} title="New agent" >
+                                    <FaPlus />
+                                </button>
+                            </div>
+                        </div>
+                        {showAgent && (
+                            <div className="sb-section-body">
+                                <button className="sb-nav-item sb-add-item" onClick={() => setshowInput(!showInput)} >
+                                    <FaPlus className="sb-nav-icon sb-add-icon" />
+                                    <span className="sb-nav-label">New agent</span>
+                                </button>
+                                {showInput && (
+                                    <input className="sb-inline-input" type="text" placeholder="Agent name…" value={agentName} onChange={(e) => setagentName(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") addAgent(); }}/>
+                                )}
+                                {agents.map((agent, index) => (
+                                    <button key={index} className="sb-nav-item sb-page-item">
+                                        <IoChatbubbleOutline className="sb-nav-icon" />
+                                        <span className="sb-nav-label">{agent}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="sb-section">
+                        <div className={`sb-section-header${showPrivate ? " sb-section-header--open" : ""}`} onClick={() => setshowPrivate(!showPrivate)}>
+                            <button className="sb-section-arrow">
+                                {showPrivate ? <IoIosArrowDown className="sb-arrow-icon" /> : <IoIosArrowForward className="sb-arrow-icon" />}
+                            </button>
+                            <span className="sb-section-title">Private</span>
+                            <div className="sb-section-actions">
+                                <button className="sb-icon-btn" onClick={(e) => e.stopPropagation()}title="Templates">
+                                    <LuLibraryBig />
+                                </button>
+                                <button className="sb-icon-btn" onClick={(e) => e.stopPropagation()} title="Options">
+                                    <BsThreeDots />
+                                </button>
+                                <button className="sb-icon-btn" onClick={(e) => { e.stopPropagation(); setshowPrivateInput(!showPrivateInput); setshowPrivate(true); }} title="New page">
+                                    <FaPlus />
+                                </button>
+                            </div>
+                        </div>
+
+                        {showPrivate && (
+                            <div className="sb-section-body">
+                                <button className="sb-nav-item sb-page-item">
+                                    <FaBookOpen className="sb-nav-icon" />
+                                    <span className="sb-nav-label">The Notion Basics</span>
+                                </button>
+                                <button className="sb-nav-item sb-add-item" onClick={() => setshowPrivateInput(!showPrivateInput)} >
+                                    <FaPlus className="sb-nav-icon sb-add-icon" />
+                                    <span className="sb-nav-label">Add new</span>
+                                </button>
+                                {showPrivateInput && (
+                                    <input className="sb-inline-input" type="text" placeholder="Page title…" value={privateName} onChange={(e) => setprivateName(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") addPrivate(); }} autoFocus/>
+                                )}
+                                {privates.map((privatee, index) => (
+                                    <div key={index} className="sb-page-row">
+                                        <button className="sb-nav-item sb-page-item sb-page-item--nested">
+                                            <IoIosArrowForward className="sb-nav-icon sb-chevron-icon" />
+                                            <span className="sb-nav-label">{privatee}</span>
+                                        </button>
+                                        <div className="sb-page-row-actions">
+                                            <button className="sb-icon-btn" title="Options"><BsThreeDots /></button>
+                                            <button className="sb-icon-btn" title="New sub-page"><FaPlus /></button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
-                <div className="open-new-chat">
-                    <button className="new-chat-btn">New Chat <p>Ctrl+o</p></button>
-                    <button className="pencil-logo"><BsPencilSquare/></button>
+
+                <div className="sb-bottom">
+                    <button className="sb-nav-item">
+                        <LuLibraryBig className="sb-nav-icon" />
+                        <span className="sb-nav-label">Library</span>
+                    </button>
+                    <button className="sb-nav-item">
+                        <RxQuestionMarkCircled className="sb-nav-icon" />
+                        <span className="sb-nav-label">Help</span>
+                    </button>
+                    <button className="sb-nav-item">
+                        <LuTrash2 className="sb-nav-icon" />
+                        <span className="sb-nav-label">Trash</span>
+                    </button>
+                </div>
+
+                <div className="sb-footer">
+                    <button className="sb-new-chat-btn">
+                        <span className="sb-new-chat-label">New Chat</span>
+                    </button>
+                    <button className="sb-icon-btn sb-pencil-btn" title="New note">
+                        <BsPencilSquare />
+                    </button>
                 </div>
             </div>
 
-            {/* ===================== Resize Handle ========================= */}
-            <div
-                className={`sidebar-dragger ${isResizing ? "resizing" : ""}`}
-                onMouseDown={startResize}
-            />
+            <div className={`sidebar-dragger${isResizing ? " resizing" : ""}`} onMouseDown={startResize}/>
         </div>
     );
 }
