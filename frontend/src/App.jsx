@@ -3,32 +3,57 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
 import SideBar from "./components/SideBar"
 import NavBar from "./components/NavBar"
-import Trash from "./components/trash"
+// import Trash from "./components/trash"
 import Login from "./components/Login"
 import SignUp from "./components/SignUp";
-
+import MainPage from './components/MainPage';
 function MainLayout() {
+  const pageData = [
+    {
+      id: 1,
+      title: "New Page",
+      icon: "📘",
+      createdBy: "user_1",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      lastEditedBy: "Virat",
+      visibility: "private",
+      tags: ["Getting Started"],
+      aiEnabled: true,
+      children: []
+    },
+    {
+      id: 2,
+      title: "The Notion Basics",
+      icon: "📘",
+      createdBy: "virat",
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      lastEditedBy: "Virat",
+      visibility: "private",
+      tags: ["Getting Started"],
+      aiEnabled: true,
+      children: []
+    }
+  ]
+
+  const [showPage,setShowPage] = useState(null);
+  const [PageTitle,setPageTitle] = useState("New Page");
+  const [privates, setPrivates] = useState([]);
+  const [agents, setAgents] = useState([]); 
+  const [Pages,setPages] = useState(pageData);
   return (
-    <div style={{ 
-      display: 'flex', 
-      height: '100vh', 
-      overflow: 'hidden',
-      backgroundColor: '#fff'
-    }}>
-      <SideBar />
-      <main style={{ 
-        flex: 1, 
-        overflow: 'auto', 
-        backgroundColor: '#fff'
-      }}>
-      </main>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden',backgroundColor: '#fff'}}>
+      <SideBar Pages = {Pages} setPages = { setPages } showPage = {showPage} setShowPage = {setShowPage} PageTitle = {PageTitle} setPageTitle = {setPageTitle} agents={agents} setAgents={setAgents} privates={privates} setPrivates={setPrivates}/>
+      <MainPage Pages = {Pages} showPage = {showPage} PageTitle = {PageTitle} setPageTitle = {setPageTitle} />
+      {/* <main style={{ flex: 1, overflow: 'auto', backgroundColor: '#fff'}}>
+      </main> */}
     </div>
   );
 }
 
 function App() {
   const [signupLogin, setSignupLogin] = useState("signup");
-
   return (
     <BrowserRouter>
       <Routes>
@@ -41,3 +66,4 @@ function App() {
 }
 
 export default App;
+
