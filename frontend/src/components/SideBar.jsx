@@ -16,13 +16,12 @@ import { FaUserTie } from "react-icons/fa6";
 import { BsPencilSquare } from "react-icons/bs";
 import { RxDoubleArrowLeft } from "react-icons/rx";
 
-function SideBar() {
+function SideBar({Pages,setPages,showPage,setShowPage,PageTitle,setPageTitle,agents,setAgents,privates,setPrivates}) {
+    const [filterPages,setFilterPages] = useState(Pages); //later work
     const [userName, setuserName] = useState("Virat");
-
     const [width, setWidth] = useState(270);
     const [isResizing, setIsResizing] = useState(false);
     const dragInfo = useRef({ startX: 0, startWidth: 0 });
-
     const startResize = useCallback((e) => {
         e.preventDefault();
         setIsResizing(true);
@@ -59,7 +58,6 @@ function SideBar() {
     const [showAgent, setshowAgent] = useState(false);
     const [showInput, setshowInput] = useState(false);
     const [agentName, setagentName] = useState("");
-    const [agents, setAgents] = useState([]);
     const addAgent = () => {
         if (agentName.trim() !== "") {
             setAgents([...agents, agentName]);
@@ -72,11 +70,25 @@ function SideBar() {
     const [showPrivate, setshowPrivate] = useState(false);
     const [showPrivateInput, setshowPrivateInput] = useState(false);
     const [privateName, setprivateName] = useState("");
-    const [privates, setPrivates] = useState([]);
+
 
     const addPrivate = () => {
         if (privateName.trim() !== "") {
-            setPrivates([...privates, privateName]);
+            setPages([...Pages,
+                {
+                    id: Date.now(),
+                    title: privateName,
+                    icon: "📘",
+                    createdBy: "user_1",
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString(),
+                    lastEditedBy: "Virat",
+                    visibility: "private",
+                    tags: ["Getting Started"],
+                    aiEnabled: true,
+                    children: []
+                }
+            ])
             setprivateName("");
             setshowPrivateInput(false);
         }
@@ -197,11 +209,11 @@ function SideBar() {
                                 {showPrivateInput && (
                                     <input className="sb-inline-input" type="text" placeholder="Page title…" value={privateName} onChange={(e) => setprivateName(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") addPrivate(); }} autoFocus/>
                                 )}
-                                {privates.map((privatee, index) => (
-                                    <div key={index} className="sb-page-row">
+                                {Pages.map((page,index) => (
+                                    <div key={index} className="sb-page-row" onClick={()=>setShowPage(page.id)}>
                                         <button className="sb-nav-item sb-page-item sb-page-item--nested">
                                             <IoIosArrowForward className="sb-nav-icon sb-chevron-icon" />
-                                            <span className="sb-nav-label">{privatee}</span>
+                                            <span className="sb-nav-label">{page.title}</span>
                                         </button>
                                         <div className="sb-page-row-actions">
                                             <button className="sb-icon-btn" title="Options"><BsThreeDots /></button>
