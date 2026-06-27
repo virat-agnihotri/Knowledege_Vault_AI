@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine,text
+from sqlalchemy import sessionmaker
 
 USERNAME="postgres"
 PASSWORD= "1234"
@@ -27,3 +28,5 @@ engine=create_engine(
 )
 with engine.connect() as conn:
     print("connected to your database successfully")
+
+sessionlocal=sessionmaker(bind=engine,Auto)

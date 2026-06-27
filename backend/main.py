@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from app.database import engine
 from sqlalchemy import String
-from sqlalchemy.orm import DeclarativeBase,Mapped,mapped_column,Session
+from sqlalchemy.orm import DeclarativeBase,Mapped,mapped_column,Session,sessionmaker
 
 
 class base(DeclarativeBase):
     pass
+
 class Hero(base):
     __tablename__="heroes"
     id:Mapped[int]=mapped_column(primary_key=True)
@@ -24,6 +25,14 @@ with Session(engine) as session:
     for hero in heroes:
         print(hero.id,hero.name,hero.age)
 
+SessionLocal = sessionmaker(bind=engine)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 app=FastAPI()
 
 @app.get("/sqlalchemy")
