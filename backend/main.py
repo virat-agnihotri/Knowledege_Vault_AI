@@ -1,43 +1,25 @@
-from fastapi import FastAPI
-from app.database import engine
-from sqlalchemy import String
-from sqlalchemy.orm import DeclarativeBase,Mapped,mapped_column,Session,sessionmaker
+from fastapi import FastAPI,Depends
+from app.database import engine,Users,get_db
+from sqlalchemy.orm import Session 
+from pydantic import BaseModel
+from typing import List
+class UserCreate(BaseModel):
+    privates:List[str]
+    agents:List[str]
 
-
-class base(DeclarativeBase):
-    pass
-
-class Hero(base):
-    __tablename__="heroes"
-    id:Mapped[int]=mapped_column(primary_key=True)
-    name:Mapped[str]=mapped_column()
-    age:Mapped[int]=mapped_column()
-
-base.metadata.create_all(engine)
-
-with Session(engine) as session:
-    hero=Hero(name="ironman",age=45)
-    session.add(hero)
-    session.commit()
-
-with Session(engine) as session:
-    heroes=session.query(Hero).all()
-    for hero in heroes:
-        print(hero.id,hero.name,hero.age)
-
-SessionLocal = sessionmaker(bind=engine)
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 app=FastAPI()
 
-@app.get("/sqlalchemy")
-def testing_database(db:session):
-    return db.query(Hero).all() 
+@app.post("/users")
+def crate_user(user:UserCreate,
+               db:Session=Depends(get_db)):
+    data=Users(
+        privates=user.privates,
+        agents=user.agents
+    )
+    db.add(data)
+    db.commit()
+    db.refresh(data)
+    return data 
 
 
 
@@ -69,6 +51,21 @@ def testing_database(db:session):
 #         print(hero.id, hero.name, hero.age)
 
 
+# with Session(engine) as session:
+#     hero=Hero(name="ironman",age=45)
+#     session.add(hero)
+#     session.commit()
+
+# with Session(engine) as session:
+#     heroes=session.query(Hero).all()
+#     for hero in heroes:
+#         print(hero.id,hero.name,hero.age)
+
+# SessionLocal = sessionmaker(bind=engine)
+
+# from app.database import engine,base
+# from sqlalchemy import String
+# from sqlalchemy.orm import DeclarativeBase,Mapped,mapped_column,Session,sessionmaker
 
 
 
