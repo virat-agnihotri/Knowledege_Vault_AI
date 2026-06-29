@@ -36,11 +36,24 @@ function MainLayout() {
       children: []
     }
   ]
-
+  
   const [showPage,setShowPage] = useState(null);
   const [PageTitle,setPageTitle] = useState("New Page");
   const [privates, setPrivates] = useState([]);
   const [agents, setAgents] = useState([]); 
+  
+  async function submit() {
+    await fetch("http://localhost:8000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        privates:privates,
+        agents:agents
+      })
+    });
+  }
   const [Pages,setPages] = useState(pageData);
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'hidden',backgroundColor: '#fff'}}>
