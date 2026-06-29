@@ -1,13 +1,30 @@
-from fastapi import FastAPI,Depends
-from app.database import engine,Users,get_db
+from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
+from app.database import engine, Users, get_db
 from sqlalchemy.orm import Session 
 from pydantic import BaseModel
 from typing import List
+from app.test import printshello
+
 class UserCreate(BaseModel):
     privates:List[str]
     agents:List[str]
 
 app=FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/upload")
+def upload():
+    text=printshello()
+    print("end point hit")
+    return{"message":text}
 
 @app.post("/users")
 def crate_user(user:UserCreate,
@@ -66,15 +83,6 @@ def crate_user(user:UserCreate,
 # from app.database import engine,base
 # from sqlalchemy import String
 # from sqlalchemy.orm import DeclarativeBase,Mapped,mapped_column,Session,sessionmaker
-
-
-
-
-
-
-
-
-
 
 
 

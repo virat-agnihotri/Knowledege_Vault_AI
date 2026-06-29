@@ -80,7 +80,8 @@ function SideBar({Pages,setPages,showPage,setShowPage,PageTitle,setPageTitle,age
     // =======================PRIVATE=====================================
     const addPrivate = () => {
         if (privateName.trim() !== "") {
-            setPages([...Pages,
+            const data = [...Pages]
+            setPages([
                 {
                     id: Date.now(),
                     title: privateName,
@@ -93,7 +94,7 @@ function SideBar({Pages,setPages,showPage,setShowPage,PageTitle,setPageTitle,age
                     tags: ["Getting Started"],
                     aiEnabled: true,
                     children: []
-                }
+                },...data
             ])
             setprivateName("");
             setshowPrivateInput(false);
