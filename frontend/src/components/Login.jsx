@@ -8,6 +8,7 @@ import { IoBusinessOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 function Login() {
     const navigate=useNavigate();
+    const []
   return (
     <div className='login-page'>
         <div className='login-box'>

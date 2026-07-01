@@ -1,18 +1,19 @@
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from app.database import engine, Users, get_db
+from app.database import engine, Users, get_db,Login
 from sqlalchemy.orm import Session 
 from pydantic import BaseModel
 from typing import List
 from app.test import printshello
+from app import models
 
-class UserCreate(BaseModel):
-    name: str
-    privates: List[str]
-    agents: List[str]
+
+# class UserCreate(BaseModel):
+#     name: str
+#     privates: List[str]
+#     agents: List[str]
 
 app=FastAPI()
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],
@@ -20,12 +21,31 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+models.Base.metadata.create_all(bind=engine)
+# @app.get("/upload")
+# def upload():
+#     text=printshello()
+#     print("end point hit")
+#     return{"message":text}
+# class SignupUser(BaseModel):
+#     user_id:int
+#     user_name:str
+#     passwd:str
+#     email_id:str
 
-@app.get("/upload")
-def upload():
-    text=printshello()
-    print("end point hit")
-    return{"message":text}
+
+@app.post("/signup")
+def signup(user:SignupUser,db:Session=Depends(get_db)):
+    info=Login(
+        user_id=user.user_id,
+        user_name=user.user_name,
+        passwd=user.passwd,
+        email_id=user.email_id
+    )
+    db.add(info)
+    db.commit()
+    db.refresh(info)
+    return info
 
 @app.post("/users")
 def crate_user(user:UserCreate,

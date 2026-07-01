@@ -13,7 +13,7 @@ function SignUp() {
         <h1>Notion: your AI workspace.</h1>        
         <h2>Sign up with your work email</h2>
         <label>Work email</label>
-        <input type="email" placeholder='name@company.com'></input>
+        <input type="email" placeholder='name@company.com' value="enter here"></input>
         <div className='tipbox'>
           <strong>Tip:Use your work email </strong>(if you have one) so
           it's easier for your team to join you on Notion 
